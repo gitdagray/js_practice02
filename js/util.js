@@ -22,7 +22,9 @@ document
       total: total,
       score: percent
     };
+    const body = document.getElementsByTagName("body")[0];
     try {
+      body.className = "spinner";
       const response = await fetch(
         "https://verdant-waiting-flame.glitch.me/api/users/assignments/add",
         {
@@ -35,6 +37,7 @@ document
         }
       );
       const success = await response.json();
+      body.classList.remove("spinner");
       if (response.ok) {
         alert(
           "Success! Your assignment is submitted.\nIf you want to update your score, you can resubmit. The last score you submit will be counted for your grade.\n\nYour score: " +
@@ -46,6 +49,10 @@ document
         );
       }
     } catch (err) {
+      body.classList.remove("spinner");
+      alert(
+        "There has been an error. Please check the console log in dev tools"
+      );
       console.log(err);
     }
   });
